@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>mysql_render</title>
+</head>
+<body>
+  <div>
+    <table border=0>
+    <tr>
+      <th>id</th>
+      <th>username</th>
+      <th>password</th>
+    </tr>
+     <%for(var i = 0; i < renderData.length; i++){%>
+        <tr>
+          <td><%=renderData[i].ID%></td>
+          <td><%=renderData[i].username%></td>
+          <td><%=renderData[i].password%></td>
+        </tr>
+      <%}%>
+    </table>
+  </div>  
+</body>
+</html
