@@ -2,7 +2,7 @@ const http = require('http')
 const url = require('url')
 const mysql = require('mysql')
 const ejs = require('ejs')
-//创建数据库连接
+// 创建数据库连接
 let db = mysql.createPool({
   host: 'localhost',
   user: 'root',
@@ -10,12 +10,11 @@ let db = mysql.createPool({
   database: 'char_test'
 })
 
-
-//render
+// render
 const server = http.createServer((req, res) => {
-  let pathname = url.parse(req.url).pathname
-  if(pathname !== '/favicon.ico'){
-    if(pathname === '/index'){
+  let pathname = url.URL(req.url).pathname
+  if (pathname !== '/favicon.ico') {
+    if (pathname === '/index') {
       renderData(res)
     }
   }
@@ -26,21 +25,25 @@ async function renderData (res) {
   render(res, renderData)
 }
 
-function getRenderData(res) {
-  return new Promise( (resolve, reject) => {
-    db.query('SELECT * FROM user_table', (err, data) => {
-      if(err){
+function getRenderData (res) {
+  return new Promise((resolve, reject) => {
+    db.query('SELECT * FROM `user_table`', (err, data) => {
+      if (err) {
         reject(err)
-      }else{
+      } else {
         resolve(data)
       }
     })
   })
 }
-function render(res, renderData) {
-  //拿到renderdata再执行
-  ejs.renderFile(`${__dirname}/index.ejs`, {renderData: renderData}, (err, data) => {
-    res.writeHead(200, {'Content-Type': 'text/html;charset="utf-8"'})
+function render (res, renderData) {
+  // 拿到renderdata再执行
+  ejs.renderFile(`${__dirname}/index.ejs`, { renderData: renderData }, (err, data) => {
+    if (err) {
+      console.log(err)
+      return false
+    }
+    res.writeHead(200, { 'Content-Type': 'text/html;charset="utf-8"' })
     res.end(data)
   })
 }

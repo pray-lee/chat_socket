@@ -13,12 +13,14 @@
       <th>id</th>
       <th>username</th>
       <th>password</th>
+      <th>online</th>
     </tr>
      <%for(var i = 0; i < renderData.length; i++){%>
         <tr>
           <td><%=renderData[i].ID%></td>
           <td><%=renderData[i].username%></td>
           <td><%=renderData[i].password%></td>
+          <td><%=renderData[i].online%></td>
         </tr>
       <%}%>
     </table>
